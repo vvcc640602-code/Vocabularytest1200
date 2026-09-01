@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>國中基礎 1200 單字線上測驗</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>國中基礎 1200 單字線上測驗</h1>
+      <p>注意單字大小寫，寫錯不計分。選擇題 60 題，填充題 40 題，每題 1 分，限時 20 分鐘。</p>
+    </div>
+    <button id="settingsBtn" class="icon-button" title="Google Sheets 設定" type="button">⚙</button>
+  </header>
+
+  <main>
+    <section id="startPanel" class="panel start-panel">
+      <div class="form-grid">
+        <label>
+          作答者姓名
+          <input id="studentName" type="text" autocomplete="name" placeholder="請輸入姓名">
+        </label>
+        <label>
+          測驗日期
+          <input id="quizDate" type="date">
+        </label>
+      </div>
+      <div class="summary-grid">
+        <div><strong>100</strong><span>題目總數</span></div>
+        <div><strong>100</strong><span>滿分</span></div>
+        <div><strong>1</strong><span>每題配分</span></div>
+        <div><strong>20</strong><span>分鐘限時</span></div>
+      </div>
+      <div class="actions">
+        <button id="startQuizBtn" type="button">開始測驗</button>
+        <button id="historyBtn" class="secondary" type="button">查看本機紀錄</button>
+      </div>
+    </section>
+
+    <section id="quizPanel" class="panel hidden">
+      <div class="quiz-status">
+        <div>
+          <strong id="activeName"></strong>
+          <span id="activeDate"></span>
+        </div>
+        <div>
+          <span id="timer">剩餘 20:00</span>
+          <span id="progressText">0 / 100</span>
+        </div>
+      </div>
+
+      <section class="part-block">
+        <h2>第一大題：選擇題</h2>
+        <p class="part-note">共 60 題，其中 30 題中翻英、30 題英翻中。</p>
+        <div id="choiceQuestions" class="question-list"></div>
+      </section>
+
+      <section class="part-block">
+        <h2>第二大題：填充題</h2>
+        <p class="part-note">共 40 題。請依中文提示寫出英文，大小寫必須完全正確。</p>
+        <div id="fillQuestions" class="question-list"></div>
+      </section>
+
+      <div class="submit-bar">
+        <button id="submitQuizBtn" type="button">交卷並計分</button>
+      </div>
+    </section>
+
+    <section id="resultPanel" class="panel hidden">
+      <div class="result-head">
+        <div>
+          <h2>測驗結果</h2>
+          <p id="resultMeta"></p>
+        </div>
+        <div class="score-badge">
+          <strong id="scoreText">0</strong>
+          <span>/ 100</span>
+        </div>
+      </div>
+      <p id="syncStatus" class="sync-status"></p>
+      <div class="actions">
+        <button id="newQuizBtn" type="button">重新出題</button>
+        <button id="exportCsvBtn" class="secondary" type="button">匯出成績 CSV</button>
+      </div>
+      <h3>答錯題目與正確答案</h3>
+      <div id="wrongList" class="wrong-list"></div>
+    </section>
+
+    <section id="historyPanel" class="panel hidden">
+      <div class="section-title">
+        <h2>本機作答紀錄</h2>
+        <button id="backHomeBtn" class="secondary" type="button">返回</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <form method="dialog">
+      <h2>Google Sheets 串接設定</h2>
+      <p>把 Google Apps Script 部署後取得的 Web App 網址貼在這裡。交卷後，成績會自動寫入你的 Google 試算表。</p>
+      <label>
+        Apps Script Web App URL
+        <input id="sheetEndpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec">
+      </label>
+      <div class="dialog-actions">
+        <button id="saveSettingsBtn" type="button">儲存</button>
+        <button class="secondary" value="cancel">關閉</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="vocab-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
